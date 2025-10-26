@@ -21,6 +21,7 @@ package v1alpha1
 type MLPolicySourceApplyConfiguration struct {
 	Torch *TorchMLPolicySourceApplyConfiguration `json:"torch,omitempty"`
 	MPI   *MPIMLPolicySourceApplyConfiguration   `json:"mpi,omitempty"`
+	HPC   *HPCMLPolicySourceApplyConfiguration   `json:"hpc,omitempty"`
 }
 
 // MLPolicySourceApplyConfiguration constructs a declarative configuration of the MLPolicySource type for use with
@@ -42,5 +43,13 @@ func (b *MLPolicySourceApplyConfiguration) WithTorch(value *TorchMLPolicySourceA
 // If called multiple times, the MPI field is set to the value of the last call.
 func (b *MLPolicySourceApplyConfiguration) WithMPI(value *MPIMLPolicySourceApplyConfiguration) *MLPolicySourceApplyConfiguration {
 	b.MPI = value
+	return b
+}
+
+// WithHPC sets the HPC field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the HPC field is set to the value of the last call.
+func (b *MLPolicySourceApplyConfiguration) WithHPC(value *HPCMLPolicySourceApplyConfiguration) *MLPolicySourceApplyConfiguration {
+	b.HPC = value
 	return b
 }

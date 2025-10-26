@@ -194,6 +194,10 @@ type MLPolicySource struct {
 	// mpi defines the configuration for the MPI Runtime.
 	// +optional
 	MPI *MPIMLPolicySource `json:"mpi,omitempty"`
+
+	// hpc defines the configuration for an hpc runtime (Flux Framework)
+	// This is not constrained to a specific flavor of MPI or context
+	HPC *HPCMLPolicySource `json:"hpc,omitempty"`
 }
 
 // TorchMLPolicySource represents a PyTorch runtime configuration.
@@ -266,6 +270,26 @@ type MPIMLPolicySource struct {
 	// +kubebuilder:default=false
 	// +optional
 	RunLauncherAsNode *bool `json:"runLauncherAsNode,omitempty"`
+}
+
+// HPCMLPolicySource represents an HPC runtime configuration.
+type HPCMLPolicySource struct {
+	// Tasks is the number of tasks to provide to the workload manager
+	// Defaults to 0, which will not specify tasks to the workload manager.
+	// This is not necessarily the procs per node (but can be)
+	// +kubebuilder:default=0
+	// +optional
+	Tasks *int32 `json:"tasks,omitempty"`
+
+	// WorkloadManager to use, defaults to Flux.
+	// Adding this to support other HPC workload managers in the future
+	// +kubebuilder:default="flux"
+	// +optional
+	Manager string `json:"manager,omitempty"`
+
+	// Manager key value pair settings.
+	// +optional
+	Settings map[string]string `json:"settings,omitempty"`
 }
 
 // MPIImplementation represents one of the supported MPI implementations.

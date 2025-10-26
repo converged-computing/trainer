@@ -32,6 +32,7 @@ func New(ctx context.Context, client client.Client, indexer client.FieldIndexer)
 	registry := NewRuntimeRegistry()
 	runtimes := make(map[string]runtime.Runtime, len(registry))
 	for name, registrar := range registry {
+		fmt.Println(name)
 		for _, dep := range registrar.dependencies {
 			depRegistrar, depExist := registry[dep]
 			_, depRegistered := runtimes[dep]

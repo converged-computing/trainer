@@ -13686,6 +13686,29 @@
           }
         }
       },
+      "trainer.v1alpha1.HPCMLPolicySource": {
+        "description": "HPCMLPolicySource represents an HPC runtime configuration.",
+        "type": "object",
+        "properties": {
+          "manager": {
+            "description": "WorkloadManager to use, defaults to Flux. Adding this to support other HPC workload managers in the future",
+            "type": "string"
+          },
+          "settings": {
+            "description": "Manager key value pair settings.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          "tasks": {
+            "description": "Tasks is the number of tasks to provide to the workload manager Defaults to 0, which will not specify tasks to the workload manager. This is not necessarily the procs per node (but can be)",
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "trainer.v1alpha1.Initializer": {
         "description": "Initializer represents the desired configuration for the dataset and model initialization. It is used to initialize the assets (dataset and pre-trained model) and pre-process data.",
         "type": "object",
@@ -13778,6 +13801,14 @@
         "description": "MLPolicy represents configuration for the model training with ML-specific parameters.",
         "type": "object",
         "properties": {
+          "hpc": {
+            "description": "hpc defines the configuration for an hpc runtime (Flux Framework) This is not constrained to a specific flavor of MPI or context",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/trainer.v1alpha1.HPCMLPolicySource"
+              }
+            ]
+          },
           "mpi": {
             "description": "mpi defines the configuration for the MPI Runtime.",
             "allOf": [
@@ -13805,6 +13836,14 @@
         "description": "MLPolicySource represents the runtime-specific configuration for various technologies. One of the following specs can be set.",
         "type": "object",
         "properties": {
+          "hpc": {
+            "description": "hpc defines the configuration for an hpc runtime (Flux Framework) This is not constrained to a specific flavor of MPI or context",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/trainer.v1alpha1.HPCMLPolicySource"
+              }
+            ]
+          },
           "mpi": {
             "description": "mpi defines the configuration for the MPI Runtime.",
             "allOf": [

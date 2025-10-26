@@ -1,0 +1,37 @@
+apiVersion: trainer.kubeflow.org/v1alpha1
+kind: TrainJob
+metadata:
+  name: lammps-hpc
+  namespace: default
+spec:
+  # Reference the prerequisite runtime.
+  runtimeRef:
+    name: hpc-runtime
+    apiGroup: flux-framework.org
+    kind: MiniCluster
+
+  # Trainer metadata maps to the MiniCluster
+  trainer:
+    # The MiniCluster size
+    numNodes: 4
+
+
+    # The MiniCluster application container
+    image: "ghcr.io/converged-computing/metric-lammps:latest"
+
+    # The command and args to execute. This will flux submit as a parallel job.
+    command:
+      - "lmp"
+    args:
+      - "-v"
+      - "x"
+      - "2"
+      - "-v"
+      - "y"
+      - "2"
+      - "-v"
+      - "z"
+      - "2"
+      - "-in"
+      - "in.reaxc.hns"
+      - "-nocite"
