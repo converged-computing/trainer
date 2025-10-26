@@ -22,6 +22,7 @@ import (
 	"net/http"
 	"os"
 
+	fluxapi "github.com/flux-framework/flux-operator/api/v1alpha2"
 	zaplog "go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	apiruntime "k8s.io/apimachinery/pkg/runtime"
@@ -62,6 +63,7 @@ func init() {
 	utilruntime.Must(jobsetv1alpha2.AddToScheme(scheme))
 	utilruntime.Must(schedulerpluginsv1alpha1.AddToScheme(scheme))
 	utilruntime.Must(volcanov1beta1.AddToScheme(scheme))
+	utilruntime.Must(fluxapi.AddToScheme(scheme))
 }
 
 func main() {

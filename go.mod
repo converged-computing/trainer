@@ -3,6 +3,7 @@ module github.com/kubeflow/trainer/v2
 go 1.24.0
 
 require (
+	github.com/flux-framework/flux-operator v0.0.0-20251014232840-c6a5efcf1624
 	github.com/go-logr/logr v1.4.3
 	github.com/google/go-cmp v0.7.0
 	github.com/onsi/ginkgo/v2 v2.25.3

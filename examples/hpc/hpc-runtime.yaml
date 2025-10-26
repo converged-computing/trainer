@@ -1,0 +1,11 @@
+apiVersion: trainer.kubeflow.org/v1alpha1
+kind: TrainingRuntime
+metadata:
+  name: hpc-runtime
+  namespace: default
+# The 'spec' can be empty because our plugin doesn't use a template from here.
+# It builds the MiniCluster spec itself based on the TrainJob fields.
+spec:
+  template:
+    spec:
+      replicatedJobs: []
