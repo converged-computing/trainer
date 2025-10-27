@@ -1,0 +1,14 @@
+apiVersion: trainer.kubeflow.org/v1alpha1
+kind: TrainJob
+metadata:
+  name: lammps-job
+  namespace: default
+spec:
+  # This points to the TrainingRuntime we defined above.
+  runtimeRef:
+    name: hpc
+    apiGroup: trainer.kubeflow.org
+    kind: ClusterTrainingRuntime
+  trainer:
+    numNodes: 4
+    image: "ghcr.io/converged-computing/metric-lammps:latest"

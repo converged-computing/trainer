@@ -1,0 +1,33 @@
+apiVersion: trainer.kubeflow.org/v1alpha1
+kind: ClusterTrainingRuntime
+metadata:
+  name: hpc
+  namespace: default
+  labels:
+    trainer.kubeflow.org/framework: flux
+spec:
+  mlPolicy:
+    hpc:
+      manager: flux
+      settings:
+        flux-view-image: "ghcr.io/converged-computing/flux-view-ubuntu:tag-jammy"
+        flux-network-device: "eth0"
+        flux-queue-policy: "fcfs"
+
+  # Here is the template that the Flux plugin will modify
+  template:
+    spec:
+      replicatedJobs:
+        - name: trainer
+          template:
+            spec:
+              completionMode: Indexed
+              completions: 1
+              parallelism: 1              
+              template:
+                spec:
+                  containers:
+                    - name: node
+
+                      # Command is left out for interactive MiniCluster
+                      image: "ghcr.io/converged-computing/metric-lammps:latest"

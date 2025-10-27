@@ -1,7 +1,11 @@
 #!/bin/bash
+kind delete cluster
+kind create cluster
+kubectl apply -f https://raw.githubusercontent.com/flux-framework/flux-operator/refs/heads/main/examples/dist/flux-operator.yaml
 docker build -t ghcr.io/kubeflow/trainer/trainer-controller-manager -f ./cmd/trainer-controller-manager/Dockerfile .
 make generate
 make manifests
-kubectl delete -k ./manifests/overlays/manager
 kind load docker-image ghcr.io/kubeflow/trainer/trainer-controller-manager
 kubectl apply --server-side -k ./manifests/overlays/manager
+sleep 10
+kubectl apply -f examples/hpc/flux/

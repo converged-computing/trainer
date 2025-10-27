@@ -47,6 +47,31 @@ spec:
                 description: mlPolicy provides the ML-specific parameters for the
                   model training.
                 properties:
+                  hpc:
+                    description: |-
+                      hpc defines the configuration for an hpc runtime (Flux Framework)
+                      This is not constrained to a specific flavor of MPI or context
+                    properties:
+                      manager:
+                        default: flux
+                        description: |-
+                          WorkloadManager to use, defaults to Flux.
+                          Adding this to support other HPC workload managers in the future
+                        type: string
+                      settings:
+                        additionalProperties:
+                          type: string
+                        description: Manager key value pair settings.
+                        type: object
+                      tasks:
+                        default: 0
+                        description: |-
+                          Tasks is the number of tasks to provide to the workload manager
+                          Defaults to 0, which will not specify tasks to the workload manager.
+                          This is not necessarily the procs per node (but can be)
+                        format: int32
+                        type: integer
+                    type: object
                   mpi:
                     description: mpi defines the configuration for the MPI Runtime.
                     properties:
